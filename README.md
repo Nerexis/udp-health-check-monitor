@@ -6,7 +6,7 @@ This application is a Micronaut-based health check monitor for UDP services. It 
 - Configurable target host and port
 - Customizable UDP payload
 - Adjustable timeouts for UDP requests and client calls
-- Micronaut-based lightweight HTTP endpoint for health checks
+- Micronaut-based lightweight HTTP endpoint for health checks, with default RateLimiter enabled (resilience4j)
 
 ## Usage
 
