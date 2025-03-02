@@ -3,10 +3,12 @@ package ner;
 import io.github.resilience4j.micronaut.annotation.RateLimiter;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Head;
+import io.micronaut.http.annotation.Produces;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +53,14 @@ public class HealthController {
     }
 
     @Get("/get")
+    @Produces(MediaType.TEXT_PLAIN)
     @RateLimiter(name = "default")
     public HttpResponse<String> healthViaGet() throws InterruptedException {
         return checkHealth();
     }
 
     @Head("/head")
+    @Produces(MediaType.TEXT_PLAIN)
     @RateLimiter(name = "default")
     public HttpResponse<String> healthViaHead() throws InterruptedException {
         return checkHealth();
