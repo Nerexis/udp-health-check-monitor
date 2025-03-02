@@ -3,7 +3,9 @@ package ner;
 import io.github.resilience4j.micronaut.annotation.RateLimiter;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.HttpResponse;
+import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Head;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -48,9 +50,19 @@ public class HealthController {
         LOG.info("Service caller timeout: {}", callerTimeoutMs);
     }
 
-    @Head()
+    @Get("/get")
     @RateLimiter(name = "default")
-    public HttpResponse<String> checkHealth() throws InterruptedException {
+    public HttpResponse<String> healthViaGet() throws InterruptedException {
+        return checkHealth();
+    }
+
+    @Head("/head")
+    @RateLimiter(name = "default")
+    public HttpResponse<String> healthViaHead() throws InterruptedException {
+        return checkHealth();
+    }
+
+    private MutableHttpResponse<String> checkHealth() throws InterruptedException {
         LOG.info("received check health request");
         boolean isUp = sendUDPCheck();
         if (!isUp) {

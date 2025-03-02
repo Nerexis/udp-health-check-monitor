@@ -41,11 +41,16 @@ For Arma 3 Steam Query, use the following payload:
 ```
 
 ### **4. Health Check API**
-Once running, the service provides an HTTP endpoint to check the UDP server status.
+Once running, the service provides an HTTP endpoint to check the UDP server status. HEAD+GET supported:
 
-#### **Check UDP Server Health**
+#### **Check UDP Server Health (HEAD)**
 ```sh
-curl -v --max-time 5 -X HEAD http://localhost:8080/health
+curl -v --max-time 5 -X HEAD http://localhost:8080/health/head
+```
+
+#### **Check UDP Server Health (GET)**
+```sh
+curl -v --max-time 5 http://localhost:8080/health/get
 ```
 
 #### **Expected Responses**

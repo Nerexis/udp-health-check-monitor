@@ -93,7 +93,7 @@ class HealthControllerTest {
             // Inject dynamic port
         void testHealthEndpoint() throws InterruptedException {
             Thread.sleep(1000);
-            HttpResponse<String> response = client.toBlocking().exchange(HttpRequest.HEAD("/health"), String.class);
+            HttpResponse<String> response = client.toBlocking().exchange(HttpRequest.HEAD("/health/head"), String.class);
             assertEquals(200, response.getStatus().getCode());
         }
     }
@@ -138,7 +138,7 @@ class HealthControllerTest {
             Thread.sleep(1000); // Allow time for Micronaut to detect failure
 
             try {
-                client.toBlocking().exchange(HttpRequest.HEAD("/health"), String.class);
+                client.toBlocking().exchange(HttpRequest.HEAD("/health/head"), String.class);
                 fail("Expected to fail");
             } catch (HttpClientResponseException e) {
                 assertEquals(HttpStatus.NOT_FOUND.getCode(), e.getStatus().getCode());
@@ -185,7 +185,7 @@ class HealthControllerTest {
             }
 
             Thread.sleep(1000); // Allow time for Micronaut to detect failure
-            assertThrows(ReadTimeoutException.class, () -> client.toBlocking().exchange(HttpRequest.HEAD("/health"), String.class));
+            assertThrows(ReadTimeoutException.class, () -> client.toBlocking().exchange(HttpRequest.HEAD("/health/head"), String.class));
         }
     }
 }
